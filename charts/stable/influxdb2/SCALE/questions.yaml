@@ -1,0 +1,134 @@
+# Include{groups}
+portals:
+  open:
+# Include{portalLink}
+questions:
+  # Include{global}
+  # Include{workload}
+  # Include{workloadDeployment}
+
+  # Include{replicas1}
+  # Include{podSpec}
+  # Include{containerMain}
+  - variable: env
+    group: App Configuration
+    label: Image Environment
+    schema:
+      additional_attrs: true
+      type: dict
+      attrs:
+        - variable: DOCKER_INFLUXDB_INIT_MODE
+          label: "DOCKER_INFLUXDB_INIT_MODE"
+          schema:
+            type: string
+            required: true
+            default: "setup"
+        - variable: DOCKER_INFLUXDB_INIT_USERNAME
+          label: "DOCKER_INFLUXDB_INIT_USERNAME"
+          schema:
+            type: string
+            required: true
+            default: "admin"
+        - variable: DOCKER_INFLUXDB_INIT_ORG
+          label: "DOCKER_INFLUXDB_INIT_ORG"
+          schema:
+            type: string
+            required: true
+            default: "influxdata"
+        - variable: DOCKER_INFLUXDB_INIT_RETENTION
+          label: "DOCKER_INFLUXDB_INIT_RETENTION"
+          schema:
+            type: string
+            required: true
+            default: "0s"
+        - variable: DOCKER_INFLUXDB_INIT_BUCKET
+          label: "DOCKER_INFLUXDB_INIT_BUCKET"
+          schema:
+            type: string
+            required: true
+            default: "default"
+        - variable: DOCKER_INFLUXDB_INIT_PASSWORD
+          label: "DOCKER_INFLUXDB_INIT_PASSWORD"
+          schema:
+            type: string
+            required: true
+            private: true
+            default: "changeme"
+  # Include{containerBasic}
+  # Include{containerAdvanced}
+
+  # Include{containerConfig}
+  # Include{podOptions}
+  # Include{serviceRoot}
+  # Include{serviceMain}
+  # Include{serviceSelectorLoadBalancer}
+  # Include{serviceSelectorExtras}
+  - variable: main
+    label: "Main Service Port Configuration"
+    schema:
+      additional_attrs: true
+      type: dict
+      attrs:
+        - variable: port
+          label: "Port"
+          description: "This port exposes the container port on the service"
+          schema:
+            type: int
+            default: 80
+            required: true
+  # Include{serviceExpertRoot}
+  # Include{serviceExpert}
+  # Include{serviceList}
+  # Include{persistenceRoot}
+  - variable: data
+    label: "InfluxDB Storage"
+    description: "InfluxDB will store data in this location."
+    schema:
+      additional_attrs: true
+      type: dict
+      attrs:
+  # Include{persistenceBasic}
+  # Include{persistenceList}
+  # Include{ingressRoot}
+  - variable: main
+    label: Main Ingress
+    schema:
+      additional_attrs: true
+      type: dict
+      attrs:
+        # Include{ingressDefault}
+        # Include{ingressTLS}
+        # Include{ingressTraefik}
+        # Include{ingressAdvanced}
+        # Include{ingressList}
+        # Include{securityContextRoot}
+
+        - variable: runAsUser
+          label: "runAsUser"
+          description: "The UserID of the user running the application"
+          schema:
+            type: int
+            default: 1000
+        - variable: runAsGroup
+          label: "runAsGroup"
+          description: "The groupID of the user running the application"
+          schema:
+            type: int
+            default: 1000
+        # Include{securityContextContainer}
+        # Include{securityContextAdvanced}
+        # Include{securityContextPod}
+        - variable: fsGroup
+          label: "fsGroup"
+          description: "The group that should own ALL storage."
+          schema:
+            type: int
+            default: 1000
+
+# Include{resources}
+# Include{advanced}
+# Include{addons}
+# Include{codeserver}
+# Include{netshoot}
+# Include{vpn}
+# Include{documentation}

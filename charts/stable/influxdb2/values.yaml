@@ -1,0 +1,43 @@
+image:
+  pullPolicy: IfNotPresent
+  repository: influxdb
+  tag: 2.7.3-alpine
+
+service:
+  main:
+    ports:
+      main:
+        port: 80
+        protocol: http
+        targetPort: 8086
+
+persistence:
+  data:
+    enabled: true
+    mountPath: /var/lib/influxdb2
+
+workload:
+  main:
+    podSpec:
+      containers:
+        main:
+          probes:
+            liveness:
+              enabled: true
+              path: /health
+            readiness:
+              enabled: true
+              path: /health
+            startup:
+              enabled: true
+              path: /health
+          env:
+            DOCKER_INFLUXDB_INIT_MODE: "setup"
+            DOCKER_INFLUXDB_INIT_USERNAME: "admin"
+            DOCKER_INFLUXDB_INIT_ORG: "influxdata"
+            DOCKER_INFLUXDB_INIT_RETENTION: "0s"
+            DOCKER_INFLUXDB_INIT_BUCKET: "default"
+            DOCKER_INFLUXDB_INIT_PASSWORD: "changeme"
+portal:
+  open:
+    enabled: true
